@@ -1,7 +1,20 @@
 # Course: CS261 - Data Structures
-# Student Name:
-# Assignment:
-# Description:
+# Student Name: Alec Moldovan
+# Assignment: Assignment 2
+# Description: Implement a Dynamic Array class by completing the skeleton code provided in the 
+#                   file dynamic_array.py. The DynamicArray class will use a StaticArray object as its 
+#                   underlying data storage container and will provide many methods similar to those we 
+#                   are used to when working with Python lists. Once completed, your implementation 
+#                   will include the following methods:
+#                       resize()
+#                       append()
+#                       insert_at_index()
+#                       remove_at_index()
+#                       slice()
+#                       merge()
+#                       map()
+#                       filter()
+#                       reduce()
 
 from static_array import *
 
@@ -94,15 +107,51 @@ class DynamicArray:
 
     def resize(self, new_capacity: int) -> None:
         """
-        TODO: Write this implementation
+        INPUT: A positive integer (new capacity) and greater than or equal to current number of elements
+        MECHANICS: Checks if passed new_capacity argument is greater than equal to current number of elements
+                        1. If conditions are met, then create a new DynamicArray of size new_capacity.
+                                AND iterate through original DynamicArray and assign at the same index each 
+                                        value to the new resized DynamicArray.
+        OUTPUT: None (An internal modification)
         """
-        pass
+        if (new_capacity < size) or (new_capacity < 0):
+            pass
+        else:
+            # Create a new StaticArray with size = new_capacity
+            resized_array =  StaticArray(new_capacity)
+            # Copy items from OG StaticArray to the new resized StaticArray iteratively 
+            for i in range(self.data.size()):
+                resized_array[i] = self.data[i]
+ 
+            # Assign the resized StaticArrray to the OG StaticArray
+            # We keep the same DynamicArray object
+            self.data = resized_array
+
+            # Update the capacity of our DynamicArray object
+            self.capacity = new_capacity
+
+
+
 
     def append(self, value: object) -> None:
         """
-        TODO: Write this implementation
+        INPUT: Any object
+        MECHANICS: Append passed object to the end of the DynamicArray.
+                    1. Check if size of DynamicArray can take another object
+                        2. If not then call resize and double the size of the DynamicArray
+                    3. If the size of the DynamicArray is not exceeded then append.
+                    4. Increment the size data member by one.
+        OUTPUT: None (An internal modification)
         """
-        pass
+        last_filled_idx = self.length - 1
+        if self.lengthi + 1 > self.capacity:
+            self.resize(capacity * 2)
+            self.data[last_filled_idx + 1 ] = value
+            self.size += 1
+        else:
+            self.data[last_filled_idx + 1 ] = value
+            self.size += 1
+        
 
     def insert_at_index(self, index: int, value: object) -> None:
         """
