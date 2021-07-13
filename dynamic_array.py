@@ -137,20 +137,15 @@ class DynamicArray:
         """
         INPUT: Any object
         MECHANICS: Append passed object to the end of the DynamicArray.
-                    1. Check if size of DynamicArray can take another object
-                        2. If not then call resize and double the size of the DynamicArray
-                    3. If the size of the DynamicArray is not exceeded then append.
-                    4. Increment the size data member by one.
         EDGE CASES:
                     1. Appending invokes "Index Out of Bounds"
                     2. Empty DynamicArray
         OUTPUT: None (An internal modification)
         """
-        last_filled_idx = self.data.size() - 1
         # Check for Edge Case (1)
         if self.size + 1 > self.capacity:
             self.resize(self.capacity * 2)
-            self.data[last_filled_idx + 1 ] = value
+            self.data[self.length()] = value
             self.size += 1
 
         # Check for Edge Case (2)
@@ -160,7 +155,7 @@ class DynamicArray:
 
         # All is well.
         else:
-            self.data[last_filled_idx + 1 ] = value
+            self.data[self.length() ] = value
             self.size += 1
         
 
@@ -169,41 +164,54 @@ class DynamicArray:
         INPUT: Integer (target index), Any object (value)
         MECHANICS: Insert the passed object at the target index, if all conditions pass.
         EDGE CASES:
-                    1. Empty DynamicArray
+                    1. Target Index is 'Out of Bounds'
                     2. DynamicArray capacity filled to the TOP
-                    3. Target Index is 'Out of Bounds'
         OUTPUT: A DynamicArray with a successfully inserted value at target index or no change if otherwise
         """
-        # Check Edge Case (3)
+        # Check Edge Case (1)
         if (index < 0) and (index > self.size - 1):
             raise DynamicArrayException
 
-        # Check Edge Case (1)
-        elif (self.size == 0) and (index >= 0) and (index <= self.size - 1):
-            self.data[index] = value
+        # No element before insertion index
+        elif index > self.size:
+            raise DynamicArrayException
+
 
         # Check Edge Case (2)
-        elif (self.size += 1 > self.capacity):
-            resize(self.capacity * 2)
-            for i in range(self.size, index, -1):
-                self.data[i+1] = self.data[i]
-                self.data[index] = value
+        elif (self.size + 1 > self.capacity):
+            self.resize(self.capacity * 2)
 
-        # All is Well.
-        else:
-            for i in range(self.size, index, -1):
-                self.data[i+1] = self.data[i]
-                self.data[index] = value
-
-
-
-
+        # Insert Value~
+        for idx in range(self.size-1, index -1, -1):
+            self.data[idx+1] = self.data[idx]
+        self.data[index] = value
+        self.size += 1
 
     def remove_at_index(self, index: int) -> None:
         """
-        TODO: Write this implementation
+        INPUT: Integer (target index)
+        MECHANICS: Remove the value at the target index, if all conditions pass.
+        EDGE CASES:
+                    1. Target Index is 'Out of Bounds'
+                    2. DynamicArray is empty
+                    3. DynamicArray size is 1/4 of capacity
+                        a. Current Capacity is 10 element or less, No rezie
+                        b. Current Capacity is 10 elements or greater, resize no less than 10 elements 
+        OUTPUT: A DynamicArray with a successfully removed value at target index or no change if otherwise
         """
-        pass
+        # Check Edge Case (1)
+        if (index < 0) and (index > self.size - 1):
+            raise DynamicArrayException
+        elif (self.size == 0):
+            pass
+        elif (self.size//4 > self.capacity):
+            if (self.capacity <= 10):
+                pass
+            elif (self.capacity//4 <= 10):
+                self.resize(10)
+        for i in range(index, self.size):
+            self.data[i] = self.data[i+1]
+        
 
     def slice(self, start_index: int, size: int) -> object:
         """
