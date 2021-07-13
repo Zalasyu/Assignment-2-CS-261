@@ -114,7 +114,7 @@ class DynamicArray:
                                         value to the new resized DynamicArray.
         OUTPUT: None (An internal modification)
         """
-        if (new_capacity < size) or (new_capacity < 0):
+        if (new_capacity < self.data.size()) or (new_capacity < 0):
             pass
         else:
             # Create a new StaticArray with size = new_capacity
@@ -143,9 +143,9 @@ class DynamicArray:
                     4. Increment the size data member by one.
         OUTPUT: None (An internal modification)
         """
-        last_filled_idx = self.length - 1
-        if self.lengthi + 1 > self.capacity:
-            self.resize(capacity * 2)
+        last_filled_idx = self.length() - 1
+        if self.length() + 1 > self.capacity:
+            self.resize(self.capacity * 2)
             self.data[last_filled_idx + 1 ] = value
             self.size += 1
         else:
