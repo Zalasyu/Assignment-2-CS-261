@@ -141,13 +141,24 @@ class DynamicArray:
                         2. If not then call resize and double the size of the DynamicArray
                     3. If the size of the DynamicArray is not exceeded then append.
                     4. Increment the size data member by one.
+        EDGE CASES:
+                    1. Appending invokes "Index Out of Bounds"
+                    2. Empty DynamicArray
         OUTPUT: None (An internal modification)
         """
-        last_filled_idx = self.length() - 1
-        if self.length() + 1 > self.capacity:
+        last_filled_idx = self.data.size() - 1
+        # Check for Edge Case (1)
+        if self.size + 1 > self.capacity:
             self.resize(self.capacity * 2)
             self.data[last_filled_idx + 1 ] = value
             self.size += 1
+
+        # Check for Edge Case (2)
+        elif self.size == 0:
+            self.data[0] = value
+            self.size += 1
+
+        # All is well.
         else:
             self.data[last_filled_idx + 1 ] = value
             self.size += 1
@@ -155,9 +166,38 @@ class DynamicArray:
 
     def insert_at_index(self, index: int, value: object) -> None:
         """
-        TODO: Write this implementation
+        INPUT: Integer (target index), Any object (value)
+        MECHANICS: Insert the passed object at the target index, if all conditions pass.
+        EDGE CASES:
+                    1. Empty DynamicArray
+                    2. DynamicArray capacity filled to the TOP
+                    3. Target Index is 'Out of Bounds'
+        OUTPUT: A DynamicArray with a successfully inserted value at target index or no change if otherwise
         """
-        pass
+        # Check Edge Case (3)
+        if (index < 0) and (index > self.size - 1):
+            raise DynamicArrayException
+
+        # Check Edge Case (1)
+        elif (self.size == 0) and (index >= 0) and (index <= self.size - 1):
+            self.data[index] = value
+
+        # Check Edge Case (2)
+        elif (self.size += 1 > self.capacity):
+            resize(self.capacity * 2)
+            for i in range(self.size, index, -1):
+                self.data[i+1] = self.data[i]
+                self.data[index] = value
+
+        # All is Well.
+        else:
+            for i in range(self.size, index, -1):
+                self.data[i+1] = self.data[i]
+                self.data[index] = value
+
+
+
+
 
     def remove_at_index(self, index: int) -> None:
         """
