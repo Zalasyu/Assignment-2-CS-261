@@ -267,31 +267,88 @@ class DynamicArray:
         EDGE CASES: N/A
         OUTPUT: The OG DynamicArray object with the appendeed elements from the passed DynamicArray
         """
-        for i in second_da.data:
+        for i in range(second_da.length()):
+            self.append(second_da.data[i])
 
 
     def map(self, map_func) -> object:
         """
-        INPUT:
-        MECHANICS:
-        EDGE CASES:
-        OUTPUT:
+        INPUT: A map function -> non-boolean
+        MECHANICS: The passed map function is applied to each value in the OG DynamicArray iterable object
+                    and appended to the new DynamicArray iterable object
+        EDGE CASEs: N/A
+        OUTPUT: A new iterable DynamicArray object with its element derived from the mapped function.
         """
-        pass
+        mapped_array = DynamicArray()
+
+        # Iterate and map!
+        for i in range(self.length()):
+            mapped_array.append(map_func(self.data[i]))
+        return mapped_array
 
     def filter(self, filter_func) -> object:
         """
-        INPUT:
-        MECHANICS:
-        EDGE CASES:
-        OUTPUT:
+        INPUT: A filter function -> boolean
+        MECHANICS: The passed filter function is applied to each value in the OG DynamicArray iterable object
+                    and the value is only appended to the new DynamicArray, if the filter function returns
+                            true for that current value.
+        EDGE CASES: N/A
+        OUTPUT: A new iterable DynamicArray object with values filtered by the passed filter function.
         """
-        pass
+        filter_array = DynamicArray()
+
+        # Iterate and filter!
+        for i in range(self.length()):
+            if filter_func(self.data[i]) == True:
+                filter_array.append(self.data[i])
+        return filter_array
 
     def reduce(self, reduce_func, initializer=None) -> object:
         """
+        INPUT: A function
+        MECANICS: This method sequentially applies the reduce_func to all elements of the Dynamic Array and 
+        returns the resulting value. The method takes an optional initializer parameter. If this 
+        parameter is not provided, the first value in the array is used as the initializer. If the 
+        Dynamic Array is empty, the method returns the value of the initializer (or None, if it was 
+        not provided)
+        EDGE CASES:
+                    1. OG DynamicArray is empty but initializer given
+                    2. OG DynamicArray is empty
+                    3. OG DynamicArray has one element
+                    4. Initializer is given
+                    5. Initializer not given
+        OUTPUT: A single object from the reduction process or None if OG DynamicArray is empty
         """
-        pass
+        reduced_value = 0
+        # Edge Case (1)
+        if (initializer != None) and (self.size == 0):
+            return initializer
+
+        # Edge Case (2)
+        elif self.size == 0:
+            return None
+
+        # Edge Case (3)
+        elif (initializer == None) and (self.size == 1):
+            return self.data[0]
+
+        # Edge Case (4)
+        elif (initializer != None):
+            reduced_value = initializer
+            for i in range(self.size):
+                reduced_value = reduce_func(reduced_value, self.data[i])
+
+        # Edge Case (5)
+        else:
+            reduced_value = self.data[0]
+            for i in range(1, self.size):
+                reduced_value = reduce_func(reduced_value, self.data[i])
+
+        return reduced_value
+
+
+
+
 
 
 # ------------------- BASIC TESTING -----------------------------------------
