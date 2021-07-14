@@ -114,13 +114,13 @@ class DynamicArray:
                                         value to the new resized DynamicArray.
         OUTPUT: None (An internal modification)
         """
-        if (new_capacity < self.data.size()) or (new_capacity < 0):
+        if (new_capacity < self.size) or (new_capacity <= 0):
             pass
         else:
             # Create a new StaticArray with size = new_capacity
             resized_array =  StaticArray(new_capacity)
             # Copy items from OG StaticArray to the new resized StaticArray iteratively 
-            for i in range(self.data.size()):
+            for i in range(self.size):
                 resized_array[i] = self.data[i]
  
             # Assign the resized StaticArrray to the OG StaticArray
@@ -200,46 +200,96 @@ class DynamicArray:
         OUTPUT: A DynamicArray with a successfully removed value at target index or no change if otherwise
         """
         # Check Edge Case (1)
-        if (index < 0) and (index > self.size - 1):
+        if (index < 0) and (index >= self.size):
             raise DynamicArrayException
+
         elif (self.size == 0):
             pass
-        elif (self.size//4 > self.capacity):
+
+        elif (self.size < self.capacity//4):
+
             if (self.capacity <= 10):
-                pass
+                for i in range(index, self.size - 1):
+                    self.data[i] = self.data[i+1]
+                self.data[self.size - 1] = None
+                self.size -= 1
+
             elif (self.capacity//4 <= 10):
                 self.resize(10)
-        for i in range(index, self.size):
-            self.data[i] = self.data[i+1]
+                for i in range(index, self.size - 1):
+                    self.data[i] = self.data[i+1]
+                self.data[self.size - 1] = None
+                self.size -= 1
+
+            else:
+                self.resize(self.capacity//2)
+                for i in range(index, self.size - 1):
+                    self.data[i] = self.data[i+1]
+                self.data[self.size - 1] = None
+                self.size -= 1
+
+        elif index == self.size-1:
+            self.data[index] = None
+            self.size -= 1
+        else:
+            for i in range(index, self.size - 1):
+                self.data[i] = self.data[i+1]
+            self.data[self.size - 1] = None
+            self.size -= 1
         
 
     def slice(self, start_index: int, size: int) -> object:
         """
-        TODO: Write this implementation
+        INPUT: Integer [start_index], Integer [size]
+        MECHANICS: At start_index copy elements until size of slice equals [size], or till end of DynamicArray.
+        EDGE CASES: 
+                    1. Invalid arguments
+                    2. start_index is out of bounds
+                    3. Not enough elements to fill the slice from start 
+        OUTPUT: A new DynamicArray object that contains the range(start_index, size-1) from the OG DynamicArray
         """
-        return DynamicArray()
+        slice_array = DynamicArray()
+        if (start_index < 0) or (start_index >= self.size):
+                raise DynamicArrayException
+        elif(size > self.size) or (size + start_index > self.size) or (size < 0):
+                raise DynamicArrayException
+
+        # Resize slice_array to accomdate the number of elements
+        for i in range(start_index, size+start_index):
+            slice_array.append(self.data[i])
+
+        return slice_array
 
     def merge(self, second_da: object) -> None:
         """
-        TODO: Write this implementation
+        INPUT: A DynamicArray object
+        MECHANICS: Appends the passed DynamicArray object to the OG DynamicArray object
+        EDGE CASES: N/A
+        OUTPUT: The OG DynamicArray object with the appendeed elements from the passed DynamicArray
         """
-        pass
+        for i in second_da.data:
+
 
     def map(self, map_func) -> object:
         """
-        TODO: Write this implementation
+        INPUT:
+        MECHANICS:
+        EDGE CASES:
+        OUTPUT:
         """
         pass
 
     def filter(self, filter_func) -> object:
         """
-        TODO: Write this implementation
+        INPUT:
+        MECHANICS:
+        EDGE CASES:
+        OUTPUT:
         """
         pass
 
     def reduce(self, reduce_func, initializer=None) -> object:
         """
-        TODO: Write this implementation
         """
         pass
 
