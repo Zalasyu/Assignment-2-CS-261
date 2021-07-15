@@ -49,15 +49,23 @@ class Queue:
 
     def enqueue(self, value: object) -> None:
         """
-        TODO: Write this implementation
+        INPUT: Any object
+        MECHANICS: view the end of the index as the front of the line!
+        EDGE CASES: N/A
+        OUTPUT: An DynamicArray with its newly added value!
         """
-        pass
+        self.da.append(value)
 
     def dequeue(self) -> object:
         """
-        TODO: Write this implementation
+        INPUT: None
+        MECHANICS: View index 0 as the end of the queue in the DynamicArray
+        EDGE CASES: N/A
+        OUTPUT: A DynamicArray object with its previously stored value at index 0 removed.
         """
-        pass
+        value = self.da.data[0]
+        self.da.remove_at_index(0)
+        return value
 
 
 # ------------------- BASIC TESTING -----------------------------------------

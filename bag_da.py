@@ -55,44 +55,70 @@ class Bag:
         MECHANICS: Scan for target value
         EDGE CASES:
                     1. Value DNE
-                    2. Value is in index 0
-                    3. Value is in index -1
         OUTPUT: OG DynamicArray object with target value removed, if it exists.
         """
         # A bag is unsorted. Must do linear search
-        for i, target in enumerate(self.da.data):
-            if target == value:
+        for i in range(self.size()):
+            peek = self.da.data.get(i)
+            if value == peek:
                 self.da.remove_at_index(i)
                 return True
-            else:
-                return False
+        return False
 
     def count(self, value: object) -> int:
         """
-        INPUT:
-        MECHANICS:
-        EDGE CASES:
-        OUTPUT:
+        INPUT: Value to match
+        MECHANICS: Increment count every match for target value
+        EDGE CASES: 
+                    1. Value DNE
+        OUTPUT: An integer that represents the number of occurences of target value.
         """
-        pass
+        count = 0
+        for i in range(self.da.length()):
+            peek = self.da.data.get(i)
+            if value == peek:
+                count += 1
+        return count
+
+            
 
     def clear(self) -> None:
         """
-        INPUT:
-        MECHANICS:
+        INPUT: None
+        MECHANICS: Clear the contents of the DynamicArray!
         EDGE CASES:
-        OUTPUT:
+                    1.  DynamicArray is empty
+        OUTPUT: A cleared DynamicArray
         """
-        pass
+        if self.size() == 0:
+            pass
+        else:
+            empty_da = DynamicArray()
+            self.da = empty_da
 
     def equal(self, second_bag: object) -> bool:
         """
-        INPUT:
-        MECHANICS:
+        INPUT: A DynamicArray object
+        MECHANICS: If they have the same elements, and everything is represented by a number,
+                    then a reduction of each list should equal each other!
         EDGE CASES:
-        OUTPUT:
+                    1. Empty bags
+                    2. Bags same size but do not contain same elements
+        OUTPUT: True/False (True if bags are equal; False otherwise)
         """
-        pass
+        if (self.size() == 0) and (second_bag.size() == 0):
+            return True
+        elif (self.size() != second_bag.size()):
+            return False
+        else:
+            # Store all unique values in our DynamicArray object
+            OG_bag_value = self.da.reduce(lambda x, y: x+y)
+            passed_bag_value = second_bag.da.reduce(lambda x, y: x+y)
+            if OG_bag_value == passed_bag_value:
+                return True
+        return False
+
+
 
 
 # ------------------- BASIC TESTING -----------------------------------------

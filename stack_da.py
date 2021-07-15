@@ -49,19 +49,28 @@ class Stack:
 
     def push(self, value: object) -> None:
         """
-        TODO: Write this implementation
+        INPUT: 
+        MECHANICS:
+        EDGE CASES:
+        OUTPUT:
         """
         pass
 
     def pop(self) -> object:
         """
-        TODO: Write this implementation
+        INPUT:
+        MECHANICS:
+        EDGE CASES:
+        OUTPUT:
         """
         pass
 
     def top(self) -> object:
         """
-        TODO: Write this implementation
+        INPUT:
+        MECHANICS:
+        EDGE CASES:
+        OUTPUT:
         """
         pass
 
