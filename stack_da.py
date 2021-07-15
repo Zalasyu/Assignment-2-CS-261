@@ -49,30 +49,38 @@ class Stack:
 
     def push(self, value: object) -> None:
         """
-        INPUT: 
-        MECHANICS:
+        INPUT: Any object
+        MECHANICS: View the end of the DynamicArray as the front and push objects in front of objects!
         EDGE CASES:
-        OUTPUT:
+        OUTPUT: A DynamicArray with a newly added object at the top of the Stack`
         """
-        pass
+        self.da_val.append(value)
 
     def pop(self) -> object:
         """
-        INPUT:
-        MECHANICS:
+        INPUT: None
+        MECHANICS: View the end of the DynamicArray as the top of a stack and remove that (FILO)
         EDGE CASES:
-        OUTPUT:
+                    1. Stack is empty
+        OUTPUT: A Dynamic Array with a removed object from the top of the stack and returned is that object.
         """
-        pass
+        if self.size() == 0:
+            raise StackException
+        value = self.da_val.data[self.size() - 1]
+        self.da_val.remove_at_index(self.size() - 1)
+        return value
 
     def top(self) -> object:
         """
-        INPUT:
-        MECHANICS:
+        INPUT: None
+        MECHANICS: View the end of the DynamicArray as the top of the stack, so return that top w/o removing
         EDGE CASES:
-        OUTPUT:
+                    1. Stack is empty
+        OUTPUT: The object at the top of the stack
         """
-        pass
+        if self.size() == 0:
+            raise StackException
+        return self.da_val.data[self.size() - 1]
 
 
 # ------------------- BASIC TESTING -----------------------------------------

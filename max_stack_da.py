@@ -50,27 +50,62 @@ class MaxStack:
 
     def push(self, value: object) -> None:
         """
-        TODO: Write this implementation
+        INPUT: Any object
+        MECHANICS: View the end of the DynamicArray as the front and push objects in front of objects!
+        EDGE CASES:
+        OUTPUT: A DynamicArray with a newly added object at the top of the Stack`
         """
-        pass
+        if self.da_max.is_empty() == True:
+            self.da_max.append(value)
+
+        elif value > self.top():
+            self.da_max.append(value)
+
+        self.da_val.append(value)
+
 
     def pop(self) -> object:
         """
-        TODO: Write this implementation
+        INPUT: None
+        MECHANICS: View the end of the DynamicArray as the top of a stack and remove that (FILO)
+        EDGE CASES:
+                    1. Stack is empty
+        OUTPUT: A Dynamic Array with a removed object from the top of the stack and returned is that object.
         """
-        pass
+        if self.is_empty == True:
+            raise StackException
+        value = self.da_val.data[self.size() - 1]
+        self.da_val.remove_at_index(self.size() - 1)
+
+        # If max value in da_max is being removed, then that max DNE in da_val or da_max.
+        if self.da_max.data[self.da_max.length() - 1] == value:
+            self.da_max.remove_at_index(self.da_max.length() - 1)
+        return value
 
     def top(self) -> object:
         """
-        TODO: Write this implementation
+        INPUT: None
+        MECHANICS: View the end of the DynamicArray as the top of the stack, so return that top w/o removing
+        EDGE CASES:
+                    1. Stack is empty
+        OUTPUT: The object at the top of the stack
         """
-        pass
+        if self.is_empty == True:
+            raise StackException
+        return self.da_val.data[self.size() - 1]
 
     def get_max(self) -> object:
         """
-        TODO: Write this implementation
+        INPUT: NONE
+        MECHANICS: 
+        EDGE CASES:
+                    1. Stack is empty_da`
+        OUTPUT: The global maximum value in the Stack`
         """
-        pass
+        if self.da_max.is_empty() == True:
+            raise StackException
+        return self.da_max.data[self.da_max.length() - 1]
+
 
 
 # ------------------- BASIC TESTING -----------------------------------------
