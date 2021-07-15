@@ -41,31 +41,56 @@ class Bag:
 
     def add(self, value: object) -> None:
         """
-        TODO: Write this implementation
+        INPUT: Any object
+        MECHANICS: Add an object to the list
+        EDGE CASES:
+        OUTPUT: OG DynamicArray object includes the added object [value]
         """
-        pass
+        # The Amortized Analysis of the append method is already O(1)
+        self.da.append(value)
 
     def remove(self, value: object) -> bool:
         """
-        TODO: Write this implementation
+        INPUT: Target value to remove
+        MECHANICS: Scan for target value
+        EDGE CASES:
+                    1. Value DNE
+                    2. Value is in index 0
+                    3. Value is in index -1
+        OUTPUT: OG DynamicArray object with target value removed, if it exists.
         """
-        pass
+        # A bag is unsorted. Must do linear search
+        for i, target in enumerate(self.da.data):
+            if target == value:
+                self.da.remove_at_index(i)
+                return True
+            else:
+                return False
 
     def count(self, value: object) -> int:
         """
-        TODO: Write this implementation
+        INPUT:
+        MECHANICS:
+        EDGE CASES:
+        OUTPUT:
         """
         pass
 
     def clear(self) -> None:
         """
-        TODO: Write this implementation
+        INPUT:
+        MECHANICS:
+        EDGE CASES:
+        OUTPUT:
         """
         pass
 
     def equal(self, second_bag: object) -> bool:
         """
-        TODO: Write this implementation
+        INPUT:
+        MECHANICS:
+        EDGE CASES:
+        OUTPUT:
         """
         pass
 
