@@ -58,7 +58,7 @@ class MaxStack:
         if self.da_max.is_empty() == True:
             self.da_max.append(value)
 
-        elif value > self.top():
+        elif value >= self.top():
             self.da_max.append(value)
 
         self.da_val.append(value)

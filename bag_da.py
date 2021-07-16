@@ -108,16 +108,19 @@ class Bag:
         """
         if (self.size() == 0) and (second_bag.size() == 0):
             return True
-        elif (self.size() != second_bag.size()):
-            return False
         else:
-            # Store all unique values in our DynamicArray object
-            OG_bag_value = self.da.reduce(lambda x, y: x+y)
-            passed_bag_value = second_bag.da.reduce(lambda x, y: x+y)
-            if OG_bag_value == passed_bag_value:
+            # Linear search each element in our bag and see if it is in the second bag.
+            match_count = 0
+            for i in range(self.size()):
+                value = self.da.data[i]
+                for j in range(second_bag.size()):
+                    poss_match = second_bag.da.data[j]
+                    if value == poss_match:
+                        match_count += 1
+            if match_count == self.size():
                 return True
-        return False
-
+            else:
+                return False
 
 
 
@@ -161,12 +164,16 @@ if __name__ == "__main__":
     bag1 = Bag([10, 20, 30, 40, 50, 60])
     bag2 = Bag([60, 50, 40, 30, 20, 10])
     bag3 = Bag([10, 20, 30, 40, 50])
+    bag4 = Bag(['eY', 'gE`^QkWOb', 'XDHX', 'JGeEuLK\\`', 'pQKPBIk', 'RTlT', 'uBdB^o', 'bBKVUqawD'])
+    bag5 = Bag(['uBdB^o', 'gE`^QkWOb', 'XDHX', 'eY', 'pQKPBIk', 'RTlT', 'JGeEuLK\\`', 'bBKVUqawD'])
     bag_empty = Bag()
 
     print(bag1, bag2, bag3, bag_empty, sep="\n")
     print(bag1.equal(bag2), bag2.equal(bag1))
     print(bag1.equal(bag3), bag3.equal(bag1))
     print(bag2.equal(bag3), bag3.equal(bag2))
+    print(bag2.equal(bag3), bag3.equal(bag2))
+    print(bag4.equal(bag5), bag5.equal(bag4))
     print(bag1.equal(bag_empty), bag_empty.equal(bag1))
     print(bag_empty.equal(bag_empty))
     print(bag1, bag2, bag3, bag_empty, sep="\n")

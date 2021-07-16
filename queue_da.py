@@ -63,7 +63,7 @@ class Queue:
         EDGE CASES: N/A
         OUTPUT: A DynamicArray object with its previously stored value at index 0 removed.
         """
-        if self.size() == 0:
+        if self.is_empty() == True:
             return QueueException
         value = self.da.data[0]
         self.da.remove_at_index(0)
