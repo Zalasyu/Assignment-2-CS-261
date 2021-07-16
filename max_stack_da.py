@@ -72,7 +72,7 @@ class MaxStack:
                     1. Stack is empty
         OUTPUT: A Dynamic Array with a removed object from the top of the stack and returned is that object.
         """
-        if self.is_empty == True:
+        if self.is_empty() == True:
             raise StackException
         value = self.da_val.data[self.size() - 1]
         self.da_val.remove_at_index(self.size() - 1)
@@ -90,7 +90,7 @@ class MaxStack:
                     1. Stack is empty
         OUTPUT: The object at the top of the stack
         """
-        if self.is_empty == True:
+        if self.is_empty() == True:
             raise StackException
         return self.da_val.data[self.size() - 1]
 

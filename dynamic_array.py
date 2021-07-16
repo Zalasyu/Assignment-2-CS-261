@@ -169,16 +169,12 @@ class DynamicArray:
         OUTPUT: A DynamicArray with a successfully inserted value at target index or no change if otherwise
         """
         # Check Edge Case (1)
-        if (index < 0) and (index > self.size - 1):
-            raise DynamicArrayException
 
-        # No element before insertion index
-        elif index > self.size:
+        if (index < 0) or (index > self.size ):
             raise DynamicArrayException
-
 
         # Check Edge Case (2)
-        elif (self.size + 1 > self.capacity):
+        elif (self.size == self.capacity):
             self.resize(self.capacity * 2)
 
         # Insert Value~
@@ -200,7 +196,7 @@ class DynamicArray:
         OUTPUT: A DynamicArray with a successfully removed value at target index or no change if otherwise
         """
         # Check Edge Case (1)
-        if (index < 0) and (index >= self.size):
+        if (index < 0) or (index > self.size):
             raise DynamicArrayException
 
         elif (self.size == 0):
@@ -214,7 +210,7 @@ class DynamicArray:
                 self.data[self.size - 1] = None
                 self.size -= 1
 
-            elif (self.capacity//4 <= 10):
+            elif (self.capacity//2 <= 10):
                 self.resize(10)
                 for i in range(index, self.size - 1):
                     self.data[i] = self.data[i+1]
