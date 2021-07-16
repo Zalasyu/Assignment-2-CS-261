@@ -202,7 +202,7 @@ class DynamicArray:
         elif (self.size == 0):
             pass
 
-        elif (self.size < self.capacity//4):
+        elif (self.size < self.capacity/4):
 
             if (self.capacity <= 10):
                 for i in range(index, self.size - 1):
@@ -218,7 +218,7 @@ class DynamicArray:
                 self.size -= 1
 
             else:
-                self.resize(self.capacity//2)
+                self.resize(self.size*2)
                 for i in range(index, self.size - 1):
                     self.data[i] = self.data[i+1]
                 self.data[self.size - 1] = None
