@@ -196,7 +196,7 @@ class DynamicArray:
         OUTPUT: A DynamicArray with a successfully removed value at target index or no change if otherwise
         """
         # Check Edge Case (1)
-        if (index < 0) or (index > self.size):
+        if (index < 0) or (index >= self.size):
             raise DynamicArrayException
 
         elif (self.size == 0):

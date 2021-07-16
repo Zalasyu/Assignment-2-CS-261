@@ -64,7 +64,7 @@ class Queue:
         OUTPUT: A DynamicArray object with its previously stored value at index 0 removed.
         """
         if self.is_empty() == True:
-            return QueueException
+            raise QueueException
         value = self.da.data[0]
         self.da.remove_at_index(0)
         return value
@@ -82,8 +82,16 @@ if __name__ == "__main__":
         q.enqueue(value)
     print(q)
 
-
     print("\n# dequeue example 1")
+    p = Queue()
+    try:
+        import pdb; pdb.set_trace()
+        p.dequeue()
+    except Exception as e:
+        print("No elements in queue", type(e))
+
+
+    print("\n# dequeue example 2")
     q = Queue()
     for value in [1, 2, 3, 4, 5]:
         q.enqueue(value)
