@@ -117,7 +117,7 @@ class Bag:
                     poss_match = second_bag.da.data[j]
                     if value == poss_match:
                         match_count += 1
-            if match_count == self.size():
+            if match_count == self.size() and match_count == second_bag.size():
                 return True
             else:
                 return False
@@ -169,11 +169,10 @@ if __name__ == "__main__":
     bag_empty = Bag()
 
     print(bag1, bag2, bag3, bag_empty, sep="\n")
+    print(bag4.equal(bag5), bag5.equal(bag4))
     print(bag1.equal(bag2), bag2.equal(bag1))
     print(bag1.equal(bag3), bag3.equal(bag1))
     print(bag2.equal(bag3), bag3.equal(bag2))
-    print(bag2.equal(bag3), bag3.equal(bag2))
-    print(bag4.equal(bag5), bag5.equal(bag4))
     print(bag1.equal(bag_empty), bag_empty.equal(bag1))
     print(bag_empty.equal(bag_empty))
     print(bag1, bag2, bag3, bag_empty, sep="\n")
