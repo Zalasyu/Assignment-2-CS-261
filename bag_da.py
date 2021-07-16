@@ -109,16 +109,16 @@ class Bag:
         if (self.size() == second_bag.size()):
             # Linear search each element in our bag and see if it is in the second bag.
             match_count = 0
-            prev_match_index = None
+            prev_match_indices = DynamicArray()
             for i in range(self.size()):
                 value = self.da.data[i]
                 for j in range(self.size()):
                     poss_match = second_bag.da.data[j]
-                    if value == poss_match and prev_match_index != j:
+                    if value == poss_match:
                         match_count += 1
-                        prev_match_index = j
+                        prev_match_indices.append(j)
                         break
-            if (match_count == self.size()):
+            if (match_count == self.size()) and (prev_match_indices.length() == self.size()):
                 return True
             else:
                 return False
