@@ -22,6 +22,7 @@ class MaxStack:
         """
         self.da_val = DynamicArray()
         self.da_max = DynamicArray()
+        self.max = None
 
     def __str__(self) -> str:
         """
@@ -58,7 +59,7 @@ class MaxStack:
         if self.da_max.is_empty() == True:
             self.da_max.append(value)
 
-        elif value >= self.top():
+        elif value >= self.da_max.data[self.da_max.length() - 1]:
             self.da_max.append(value)
 
         self.da_val.append(value)
@@ -104,13 +105,7 @@ class MaxStack:
         """
         if self.da_max.is_empty() == True:
             raise StackException
-        else:
-            max = self.da_max.data[0]
-            for i in range(self.da_max.length()):
-                if max < self.da_max.data[i]:
-                    max = self.da_max.data[i]
-
-        return max
+        return self.da_max.data[self.da_max.length() - 1]
 
 
 
