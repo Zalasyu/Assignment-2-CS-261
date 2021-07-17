@@ -104,7 +104,13 @@ class MaxStack:
         """
         if self.da_max.is_empty() == True:
             raise StackException
-        return self.da_max.data[self.da_max.length() - 1]
+        else:
+            max = self.da_max.data[0]
+            for i in range(self.da_max.length()):
+                if max < self.da_max.data[i]:
+                    max = self.da_max.data[i]
+
+        return max
 
 
 
