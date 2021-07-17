@@ -99,32 +99,23 @@ class Bag:
     def equal(self, second_bag: object) -> bool:
         """
         INPUT: A DynamicArray object
-        MECHANICS: If they have the same elements, and everything is represented by a number,
-                    then a reduction of each list should equal each other!
+        MECHANICS: If the number of occurences of an element is not equal to the amount of occurences
+                    of that element in the passed bag, then the DynamicArray objects are not equal!
         EDGE CASES:
                     1. Empty bags
                     2. Bags same size but do not contain same elements
+                    3. Bags are not the same size
         OUTPUT: True/False (True if bags are equal; False otherwise)
         """
-        if (self.size() == second_bag.size()):
-            # Linear search each element in our bag and see if it is in the second bag.
-            match_count = 0
-            prev_match_indices = DynamicArray()
-            for i in range(self.size()):
-                value = self.da.data[i]
-                for j in range(self.size()):
-                    poss_match = second_bag.da.data[j]
-                    if value == poss_match:
-                        match_count += 1
-                        prev_match_indices.append(j)
-                        break
-            if (match_count == self.size()) and (prev_match_indices.length() == self.size()):
-                return True
-            else:
-                return False
-        else:
+        if (self.da.length() != second_bag.da.length()):
             return False
+            # Linear search each element in our bag and see if it is in the second bag.
 
+        for i in range(self.da.length()):
+            ele = self.da.get_at_index(i)
+            if (self.count(ele) != second_bag.count(ele)):
+                return False
+        return True
 
 
 # ------------------- BASIC TESTING -----------------------------------------
